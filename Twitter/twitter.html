@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Home</title>
+  <link rel="stylesheet" href="style/twitter.css">
+</head>
+<body>
+    <header>
+      <div class="logo">
+          <img src="twitter-logo.png" alt="Twitter Logo">
+          <a href="#">Home</a>
+      </div>
+
+      <div class="user-profile">
+          <img src="user-avatar.jpg" alt="Your Profile Picture">
+          <div class="user-info">
+              <span class="user-name">Your Name</span>
+              <span class="user-handle">@yourhandle</span>
+          </div>
+          <div class="notifications">
+              <i class="fas fa-bell"></i>
+          </div>
+      </div>
+  </header>
+<div>
+  <div class="container">
+    <div class="leftBar">
+        <button>Home</button>
+        <button>Explore</button>
+        <button>Notifications</button>
+        <button>List</button>
+        <button>Bookmarks</button>
+        <button>Profile</button>
+    </div>
+    <main>
+        <div class="Home-form">
+            <div class="text">Home</div>
+            <div class="buttons">
+                <button class="button">for you</button>
+                <button class="button">following</button>
+            </div>
+        </div>
+        <div class="tweet-form">
+            <textarea placeholder="What's happening?"></textarea>
+            <button>Tweet</button>
+        </div>
+
+        <div class="tweet-list">
+            <div class="tweet">
+                <div class="tweet-content">
+                    <img src="user-avatar.jpg" alt="User Avatar" class="user-avatar-left">
+                    <div class="tweet-text">
+                        <span class="user-name">User Name</span>
+                        <span class="user-handle">@userhandle</span>
+                        <p>This is a sample tweet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. #sampletweet</p>
+                    </div>
+                </div>
+                <div class="tweet-actions">
+                    <button class="like-button">Like</button>
+                    <button class="retweet-button">Retweet</button>
+                </div>
+            </div>
+
+    </main>
+
+    <aside>
+        <div class="follow-suggestions">
+            <div class="search-bar">
+                <input type="text" placeholder="Search Twitter">
+                <button>Search</button>
+            </div>
+            <h2>Who to Follow</h2>
+            <div class="suggestion">
+                <img src="user1-avatar.jpg" alt="User 1">
+                <div class="suggestion-details">
+                    <span class="suggested-name">User 1</span>
+                    <span class="suggested-handle">@user1</span>
+                    <button class="follow-button">Follow</button>
+                </div>
+            </div>
+        </div>
+        <div class="trending-topics">
+            <h2>Trending</h2>
+            <ul>
+                <li><a href="#">#Topic1</a></li>
+                <li><a href="#">#Topic2</a></li>
+                <li><a href="#">#Topic3</a></li>
+            </ul>
+        </div>
+    </aside>
+</div>
+</body>
+</html>
