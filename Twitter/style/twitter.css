@@ -153,12 +153,12 @@ aside {
   font-weight: bold;
 }
 .tweet {
-  margin: 10px;
+  margin: 20px;
   display: flex;
   flex-direction: column;
 }
 .tweet-actions button {
-  margin-right: 10px;
+  margin: 10px 0;
 }
 .trending-topics h2, .follow-suggestions h2 {
   font-size: 16px;
