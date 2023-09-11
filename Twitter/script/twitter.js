@@ -26,6 +26,8 @@ tweetList.innerHTML = '';
                 <button class="comment-button">Comment</button>
                 <button class="like-button" data-count="0">Like <span class="count">0</span></button>
                 <button class="retweet-button" data-count="0">Retweet <span class="count">0</span></button>
+
+                <div class="comments-list"></div>
             </div>
             
         `;
@@ -147,3 +149,31 @@ displayTweets();
 });
 
 displayTweets();
+const commentButton = document.querySelector('.comment-button');
+const commentsList = document.querySelector('.comments-list');
+const userName = "Your Name"; 
+const userHandle = "@yourhandle"; 
+const userImage = "user-avatar.jpg";
+
+commentButton.addEventListener('click', () => {
+    const commentInput = document.querySelector('.comment-input').value;
+    if (commentInput.trim() !== '') {
+
+        const commentElement = document.createElement('div');
+        commentElement.classList.add('comment');
+        commentElement.innerHTML = `
+            <div class="comment-user-info">
+                <img src="${userImage}" alt="User Avatar" class="comment-user-avatar">
+                <div class="comment-user-details">
+                    <span class="comment-user-name">${userName}</span>
+                    <span class="comment-user-handle">${userHandle}</span>
+                </div>
+            </div>
+            <p class="comment-text">${commentInput}</p>
+        `;
+
+        commentsList.appendChild(commentElement);
+
+        document.querySelector('.comment-input').value = '';
+    }
+});
