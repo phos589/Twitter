@@ -9,7 +9,8 @@ export let tweets = [
   image: "user-avatar.jpg",
   userName: "User Name 2",
   userHandle: "@userhandle2",
-  tweetText: "This is the second tweet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. #tweet2"
+  tweetText: "This is the second tweet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. #tweet2",
+  tweetimage: "image/1.png"
 },
 { 
   image: "user-avatar.jpg",

@@ -137,13 +137,13 @@ aside {
   width: 100%;
   border: 1px solid rgba(128, 128, 128, 0.521);
 }
-.tweet-form textarea {
+.tweet-form textarea ,.comment-input{
   width: 100%;
   border: none;
   resize: none;
   font-size: 16px;
 }
-.tweet-form button, .follow-button, .tweet-actions button {
+.tweet-form button, .follow-button, .tweet-actions button ,.image-upload-label{
   background-color: #1DA1F2;
   color: #fff;
   border: none;
@@ -151,30 +151,40 @@ aside {
   border-radius: 20px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 14px;
 }
 .tweet {
   margin: 20px;
   display: flex;
   flex-direction: column;
 }
+.tweet-content{
+  margin-top: 20px;
+}
+.tweet-actions{
+  border-bottom: 1px solid #77777757;
+}
 .tweet-actions button {
   margin: 10px 0;
+}
+.trending-topics,.suggestion,.follow-suggestions{
+  background: rgba(128, 128, 128, 0.11);
+  margin: 20px;
+  border-radius: 20px;
+  padding: 20px;
 }
 .trending-topics h2, .follow-suggestions h2 {
   font-size: 16px;
   font-weight: bold;
   margin: 10px 0;
 }
-
 .trending-topics ul, .follow-suggestions ul {
   list-style-type: none;
   padding: 0;
 }
-
 .trending-topics li, .follow-suggestions li {
   margin-bottom: 5px;
 }
-
 .trending-topics a {
   color: #1DA1F2;
   text-decoration: none;
@@ -190,9 +200,30 @@ ul {
   padding: 0;
   margin: 0;
 }
-
 li {
   margin: 0;
   padding: 0;
   line-height: 1.5;
+}
+#searchResults {
+  display: none;
+  padding: 10px 0;
+  border-radius: 20px;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1;
+}
+.tweet-image-container {
+  display: flex;
+  justify-content: center; 
+  max-width: 100%;
+  overflow: hidden;
+  margin-top: 10px; 
+}
+.tweet-image-container img {
+  max-width: 100%;
+  max-height: 60vh; 
+  height: auto;
+  border-radius: 20px;
 }
