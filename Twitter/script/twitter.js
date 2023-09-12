@@ -2,7 +2,7 @@ import { tweets } from "../script/Tweet.js";
 import { trendingTopics } from "./Trend.js";
 
 function displayTweets() {
-
+    
 const tweetList = document.querySelector('.tweet-list');
 tweetList.innerHTML = '';
 
@@ -68,6 +68,38 @@ tweetList.innerHTML = '';
                 retweetButton.classList.remove("retweeted");
             }
             retweetButton.querySelector(".count").textContent = retweetCount;
+
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = tweetHTML;
+    
+            tweetList.appendChild(tempDiv);
+    
+            const commentButton = tempDiv.querySelector(".comment-button");
+            const commentsList = tempDiv.querySelector(".comments-list");
+    
+            commentButton.addEventListener("click", () => {
+                const commentInput = tempDiv.querySelector(".comment-input");
+                const commentText = commentInput.value;
+    
+                if (commentText.trim() !== '') {
+                    const commentElement = document.createElement('div');
+                    commentElement.classList.add('comment');
+                    commentElement.innerHTML = `
+                        <div class="comment-user-info">
+                            <img src="${userImage}" alt="User Avatar" class="comment-user-avatar">
+                            <div class="comment-user-details">
+                                <span class="comment-user-name">${userName}</span>
+                                <span class="comment-user-handle">${userHandle}</span>
+                            </div>
+                        </div>
+                        <p class="comment-text">${commentText}</p>
+                    `;
+    
+                    commentsList.appendChild(commentElement);
+                    commentInput.value = '';
+                }
+            });
+    
         });
     });
 }
@@ -114,7 +146,6 @@ const tweetText = document.querySelector(".tweet-form textarea").value;
 const imageFile = document.querySelector("#image-upload").files[0];
 
 
-// Check if the textarea is filled
 if (tweetText.trim() !== "") {
 
     const newTweet = {
@@ -124,7 +155,7 @@ if (tweetText.trim() !== "") {
         tweetText: tweetText,
         tweetimage: "",
     };
-// Check if an image file is selected
+    
 if (imageFile) {
     
     const reader = new FileReader();
@@ -143,37 +174,10 @@ if (imageFile) {
 }
 
 document.querySelector(".tweet-form textarea").value = "";
+document.querySelector("#image-upload").value = "";
 
 displayTweets();
     }
 });
 
 displayTweets();
-const commentButton = document.querySelector('.comment-button');
-const commentsList = document.querySelector('.comments-list');
-const userName = "Your Name"; 
-const userHandle = "@yourhandle"; 
-const userImage = "user-avatar.jpg";
-
-commentButton.addEventListener('click', () => {
-    const commentInput = document.querySelector('.comment-input').value;
-    if (commentInput.trim() !== '') {
-
-        const commentElement = document.createElement('div');
-        commentElement.classList.add('comment');
-        commentElement.innerHTML = `
-            <div class="comment-user-info">
-                <img src="${userImage}" alt="User Avatar" class="comment-user-avatar">
-                <div class="comment-user-details">
-                    <span class="comment-user-name">${userName}</span>
-                    <span class="comment-user-handle">${userHandle}</span>
-                </div>
-            </div>
-            <p class="comment-text">${commentInput}</p>
-        `;
-
-        commentsList.appendChild(commentElement);
-
-        document.querySelector('.comment-input').value = '';
-    }
-});
