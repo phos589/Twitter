@@ -9,7 +9,7 @@ tweetList.innerHTML = '';
     tweets.forEach(function(tweet) {
         let tweetHTML = `
             <div class="tweet-content">
-                <img src="${tweet.image}" alt="User Avatar" class="user-avatar-left">
+                <img src="${tweet.image}" alt="User Avatar" class="user-avatar-left profile-image">
                 <div class="tweet-text">
                     <span class="user-name">${tweet.userName}</span>
                     <span class="user-handle">${tweet.userHandle}</span>
@@ -86,10 +86,10 @@ tweetList.innerHTML = '';
                     commentElement.classList.add('comment');
                     commentElement.innerHTML = `
                         <div class="comment-user-info">
-                            <img src="${userImage}" alt="User Avatar" class="comment-user-avatar">
+                            <img src="image/userProfile/1.jpg" alt="User Avatar" class="comment-user-avatar">
                             <div class="comment-user-details">
-                                <span class="comment-user-name">${userName}</span>
-                                <span class="comment-user-handle">${userHandle}</span>
+                                <span class="comment-user-name">Guts</span>
+                                <span class="comment-user-handle">@Guts142</span>
                             </div>
                         </div>
                         <p class="comment-text">${commentText}</p>
@@ -149,9 +149,9 @@ const imageFile = document.querySelector("#image-upload").files[0];
 if (tweetText.trim() !== "") {
 
     const newTweet = {
-        image: "user-avatar.jpg",
-        userName: "Your Name",
-        userHandle: "@yourhandle",
+        image: "image/Profile/1.jpg",
+        userName: "Guts",
+        userHandle: "@Guts455",
         tweetText: tweetText,
         tweetimage: "",
     };
@@ -179,5 +179,25 @@ document.querySelector("#image-upload").value = "";
 displayTweets();
     }
 });
+
+const suggestionDetails = document.querySelector(".suggestion-details");
+
+// Loop through the tweets array and generate HTML for each tweet
+for (let tweet of tweets) {
+    // Create a new tweet element
+    const tweetElement = document.createElement("div");
+    tweetElement.classList.add("tweet");
+
+    // Generate the HTML for the tweet and append it to the suggestion-details
+    tweetElement.innerHTML = `
+        <img src="${tweet.image}" alt="User Avatar" class="profile-image">
+        <div class="tweet-details">
+            <span class="user-name">${tweet.userName}</span>
+            <span class="user-handle">${tweet.userHandle}</span>
+        </div>
+    `;
+
+    suggestionDetails.appendChild(tweetElement);
+}
 
 displayTweets();
