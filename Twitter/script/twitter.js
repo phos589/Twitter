@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
     searchInput.addEventListener("input", function () {
         const userInput = searchInput.value.trim().toLowerCase();
 
-        if (userInput.length >= 2) {
+        if (userInput.length >= 3) {
             searchResults.style.display = "block";
 
             const maxUsers = 5;
@@ -190,10 +190,12 @@ document.addEventListener("click", function (event) {
                         reader.onload = function (e) {
                             comment.tweetimage = e.target.result; 
                             displayComment(comment, tweetSection); 
+                            addCommentListStyle(tweetSection);
                         };
                         reader.readAsDataURL(commentImageFile);
                     } else {
                         displayComment(comment, tweetSection); 
+                        addCommentListStyle(tweetSection);
                     }
 
                     commentInput.value = "";
@@ -203,6 +205,14 @@ document.addEventListener("click", function (event) {
         }
     }
 });
+
+function addCommentListStyle(tweetSection) {
+    const commentsList = tweetSection.querySelector(".comments-list");
+    if (commentsList) {
+        commentsList.classList.add("comment-list-style");
+    }
+}
+
 
 function displayComment(comment, tweetSection) {
     const commentsList = tweetSection.querySelector(".comments-list");
@@ -246,26 +256,23 @@ document.getElementById("tweet-button").addEventListener("click", function () {
             const reader = new FileReader();
             reader.onload = function (e) {
                 newTweet.tweetimage = e.target.result;
-                tweets.push(newTweet);
+                tweets.unshift(newTweet);
                 document.querySelector(".tweet-form textarea").value = "";
                 document.querySelector("#image-upload").value = "";
+                displayTweets(); 
             };
             reader.readAsDataURL(imageFile);
         } else {
-            tweets.push(newTweet);
+            tweets.unshift(newTweet);
             document.querySelector(".tweet-form textarea").value = "";
             document.querySelector("#image-upload").value = "";
+            displayTweets();
         }
     }
-    displayTweets(); 
 });
-
-
 
 document.querySelector(".tweet-form textarea").value = "";
 document.querySelector("#image-upload").value = "";
-
-displayTweets();
 
 const suggestionDetails = document.querySelector(".suggestion-details");
 
