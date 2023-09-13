@@ -1,5 +1,5 @@
 import { tweets } from "../script/Tweet.js";
-import { trendingTopics } from "./Trend.js";
+import { trendingTopics } from "../script/Trend.js";
 
 function displayTweets() {
     
@@ -8,6 +8,7 @@ tweetList.innerHTML = '';
 
     tweets.forEach(function(tweet) {
         let tweetHTML = `
+        <div class="tweet-section">
             <div class="tweet-content">
                 <img src="${tweet.image}" alt="User Avatar" class="user-avatar-left profile-image">
                 <div class="tweet-text">
@@ -24,6 +25,8 @@ tweetList.innerHTML = '';
             </div>
             <div class="tweet-actions">
                 <button class="comment-button">Comment</button>
+                <input type="file" id="comment-image-input" class="comment-image-input" style="display: none;">
+                <label for="comment-image-input" class="image-upload-label input">Choose an image</label>
                 <button class="like-button" data-count="0">Like <span class="count">0</span></button>
                 <button class="retweet-button" data-count="0">Retweet <span class="count">0</span></button>
 
@@ -54,7 +57,8 @@ tweetList.innerHTML = '';
             }
             likeButton.querySelector(".count").textContent = likeCount;
         });
-
+        //retweet not used  
+        /*
         retweetButton.addEventListener("click", function() {
             let retweetCount = parseInt(retweetButton.getAttribute("data-count"));
 
@@ -73,34 +77,8 @@ tweetList.innerHTML = '';
             tempDiv.innerHTML = tweetHTML;
     
             tweetList.appendChild(tempDiv);
-    
-            const commentButton = tempDiv.querySelector(".comment-button");
-            const commentsList = tempDiv.querySelector(".comments-list");
-    
-            commentButton.addEventListener("click", () => {
-                const commentInput = tempDiv.querySelector(".comment-input");
-                const commentText = commentInput.value;
-    
-                if (commentText.trim() !== '') {
-                    const commentElement = document.createElement('div');
-                    commentElement.classList.add('comment');
-                    commentElement.innerHTML = `
-                        <div class="comment-user-info">
-                            <img src="image/userProfile/1.jpg" alt="User Avatar" class="comment-user-avatar">
-                            <div class="comment-user-details">
-                                <span class="comment-user-name">Guts</span>
-                                <span class="comment-user-handle">@Guts142</span>
-                            </div>
-                        </div>
-                        <p class="comment-text">${commentText}</p>
-                    `;
-    
-                    commentsList.appendChild(commentElement);
-                    commentInput.value = '';
-                }
-            });
-    
-        });
+            
+        });*/
     });
 }
 
@@ -114,81 +92,188 @@ trendingTopics.forEach(function(topic) {
     listItem.appendChild(link);
     topicList.appendChild(listItem);
 });
+
 document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("searchInput");
     const searchButton = document.getElementById("searchButton");
     const searchResults = document.getElementById("searchResults");
 
-    searchButton.addEventListener("click", function (event) {
-        event.stopPropagation(); 
-        searchResults.style.display = "block";
+    searchInput.addEventListener("input", function () {
+        const userInput = searchInput.value.trim().toLowerCase();
 
-        const sampleResultsHTML = `
-            <div>John Doe</div>
-            <div>Jane Smith</div>
-            <div>Trending Topic 1</div>
-            <div>Trending Topic 2</div>
-            <div>Trending Topic 3</div>
-        `;
+        if (userInput.length >= 2) {
+            searchResults.style.display = "block";
 
-        searchResults.innerHTML = sampleResultsHTML;
-    });
+            const maxUsers = 5;
+            const maxTopics = 10;
 
-    searchInput.addEventListener("click", function (event) {
-        event.stopPropagation();
+            let usersHTML = "";
+            let topicsHTML = "";
+            let hasResults = false; 
+            
+            for (let i = 0; i < maxUsers && i < tweets.length; i++) {
+                const userTweet = tweets[i].userName.toLowerCase();
+                const userImage = tweets[i].image;
+                const Handle = tweets[i].userHandle;
+
+
+                if (userTweet.includes(userInput) || Handle.toLowerCase().includes(userInput)) {
+                    const userResultHTML = `
+                        <div>
+                            <img src="${userImage}" alt="User Avatar" class="user-avatar-left profile-image">
+                            <div class="tweet-text">
+                                <span class="user-name">${tweets[i].userName}</span>
+                                <span class="user-handle">${tweets[i].userHandle}</span>
+                            </div>
+                        </div>
+                    `;
+                    usersHTML += userResultHTML;
+                    hasResults = true;
+
+                }
+            }
+
+            const topicList = document.createElement('ul');
+            topicList.classList.add('trending-topics-search');
+
+            trendingTopics.slice(0, maxTopics).forEach(function (topic) {
+                
+                if (topic.toLowerCase().includes(userInput)) {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = "#";
+                    link.textContent = '#' + topic;
+                    listItem.appendChild(link);
+                    topicList.appendChild(listItem);
+                    hasResults = true;
+                }
+            });
+
+            if (!hasResults) {
+                searchResults.innerHTML = "<p>No results found.</p>";
+            } else {
+                topicsHTML += topicList.outerHTML;
+                searchResults.innerHTML = usersHTML + topicsHTML;
+            }
+
+        } else {
+            searchResults.style.display = "none"; 
+        }
     });
 });
 
+document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("comment-button")) {
+        const commentButton = event.target;
+        const tweetSection = commentButton.closest(".tweet-section");
+
+        if (tweetSection) {
+            const commentInput = tweetSection.querySelector(".comment-input");
+            const commentImageInput = tweetSection.querySelector(".comment-image-input");
+
+            if (commentInput) {
+
+                const commentText = commentInput.value.trim();
+                const commentImageFile = commentImageInput.files[0];
+
+                if (commentText !== "") {
+                    const comment = {
+                        image: "image/Profile/1.jpg",
+                        userName: "Guts",
+                        userHandle: "@Guts455",
+                        tweetimage: "", 
+                        commentText: commentText
+                    };
+
+                    if (commentImageFile) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            comment.tweetimage = e.target.result; 
+                            displayComment(comment, tweetSection); 
+                        };
+                        reader.readAsDataURL(commentImageFile);
+                    } else {
+                        displayComment(comment, tweetSection); 
+                    }
+
+                    commentInput.value = "";
+                    commentImageInput.value = "";
+                }
+            }
+        }
+    }
+});
+
+function displayComment(comment, tweetSection) {
+    const commentsList = tweetSection.querySelector(".comments-list");
+
+    if (commentsList) {
+        const commentElement = document.createElement("div");
+        commentElement.classList.add("comment");
+
+        commentElement.innerHTML = `
+            <img src="${comment.image}" alt="User Avatar" class="user-avatar-left profile-image">
+            <div class="tweet-text">
+                <span class="user-name">${comment.userName}</span>
+                <span class="user-handle">${comment.userHandle}</span>
+                <p>${comment.commentText}</p>
+            </div>
+            <div class="tweet-image-container">
+                ${comment.tweetimage ? `<img src="${comment.tweetimage}" alt="Tweet Image">` : ''}
+            </div>
+        `;
+
+        commentsList.appendChild(commentElement);
+    }
+}
+
+
 
 document.getElementById("tweet-button").addEventListener("click", function () {
+    const tweetText = document.querySelector(".tweet-form textarea").value;
+    const imageFile = document.querySelector("#image-upload").files[0];
 
-const tweetText = document.querySelector(".tweet-form textarea").value;
-const imageFile = document.querySelector("#image-upload").files[0];
+    if (tweetText.trim() !== "") {
+        const newTweet = {
+            image: "image/Profile/1.jpg",
+            userName: "Guts",
+            userHandle: "@Guts455",
+            tweetText: tweetText,
+            tweetimage: "",
+        };
+
+        if (imageFile) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                newTweet.tweetimage = e.target.result;
+                tweets.push(newTweet);
+                document.querySelector(".tweet-form textarea").value = "";
+                document.querySelector("#image-upload").value = "";
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            tweets.push(newTweet);
+            document.querySelector(".tweet-form textarea").value = "";
+            document.querySelector("#image-upload").value = "";
+        }
+    }
+    displayTweets(); 
+});
 
 
-if (tweetText.trim() !== "") {
-
-    const newTweet = {
-        image: "image/Profile/1.jpg",
-        userName: "Guts",
-        userHandle: "@Guts455",
-        tweetText: tweetText,
-        tweetimage: "",
-    };
-    
-if (imageFile) {
-    
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        newTweet.tweetimage = e.target.result; 
-        tweets.push(newTweet);
-        document.querySelector(".tweet-form textarea").value = "";
-        displayTweets();
-    };
-    reader.readAsDataURL(imageFile);
-} else {
-
-    tweets.push(newTweet);
-    document.querySelector(".tweet-form textarea").value = "";
-    displayTweets();
-}
 
 document.querySelector(".tweet-form textarea").value = "";
 document.querySelector("#image-upload").value = "";
 
 displayTweets();
-    }
-});
 
 const suggestionDetails = document.querySelector(".suggestion-details");
 
-// Loop through the tweets array and generate HTML for each tweet
 for (let tweet of tweets) {
-    // Create a new tweet element
+
     const tweetElement = document.createElement("div");
     tweetElement.classList.add("tweet");
 
-    // Generate the HTML for the tweet and append it to the suggestion-details
     tweetElement.innerHTML = `
         <img src="${tweet.image}" alt="User Avatar" class="profile-image">
         <div class="tweet-details">

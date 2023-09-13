@@ -46,7 +46,7 @@
             <textarea placeholder="What's happening?"></textarea>
             <button id="tweet-button">Tweet</button>
             <input type="file" accept="image/*" id="image-upload" name="image" style="display: none;">
-            <label for="image-upload" class="image-upload-label">Choose an image</label>
+            <label for="image-upload" class="image-upload-label input">Choose an image</label>
         </div>
 
         <div class="tweet-list"></div>
@@ -55,14 +55,14 @@
     <aside>
         <div class="follow-suggestions">
             <div class="search-bar">
-                <input type="text" placeholder="Search Twitter">
+                <input type="text" id="searchInput" placeholder="Search Twitter">
                 <button id="searchButton">Search</button>
                 <div class="results" id="searchResults"></div>
             </div>
         </div>
             <div class="suggestion">
                 <h2>Who to Follow</h2>
-                <div class="suggestion-details"></div>
+                <div class="suggestion-details "></div>
             </div>
      
         <div class="trending-topics">
