@@ -19,3 +19,12 @@ export let tweets = [
   tweetText: "Enjoying a quiet Sunday with a good book and a cup of coffee. ☕️📚 What's everyone reading these days? #SundayVibes #BookLovers"
 }
 ];
+export const userProfile = [
+  {
+    image: "image/Profile/1.jpg",
+    userName: "Guts",
+    userHandle: "@Guts455",
+    profileBio: "Software Engineer | Web Developer | Coffee Lover ☕️",
+    profileBanner: ""
+  }
+]

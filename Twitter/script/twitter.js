@@ -1,4 +1,4 @@
-import { tweets } from "../script/Tweet.js";
+import { tweets,userProfile } from "../script/Tweet.js";
 import { trendingTopics } from "../script/Trend.js";
 
 function displayTweets() {
@@ -178,9 +178,6 @@ document.addEventListener("click", function (event) {
 
                 if (commentText !== "") {
                     const comment = {
-                        image: "image/Profile/1.jpg",
-                        userName: "Guts",
-                        userHandle: "@Guts455",
                         tweetimage: "", 
                         commentText: commentText
                     };
@@ -213,7 +210,6 @@ function addCommentListStyle(tweetSection) {
     }
 }
 
-
 function displayComment(comment, tweetSection) {
     const commentsList = tweetSection.querySelector(".comments-list");
 
@@ -222,10 +218,10 @@ function displayComment(comment, tweetSection) {
         commentElement.classList.add("comment");
 
         commentElement.innerHTML = `
-            <img src="${comment.image}" alt="User Avatar" class="user-avatar-left profile-image">
+            <img src="${userProfile[0].image}" alt="User Avatar" class="user-avatar-left profile-image">
             <div class="tweet-text">
-                <span class="user-name">${comment.userName}</span>
-                <span class="user-handle">${comment.userHandle}</span>
+                <span class="user-name">${userProfile[0].userName}</span>
+                <span class="user-handle">${userProfile[0].userHandle}</span>
                 <p>${comment.commentText}</p>
             </div>
             <div class="tweet-image-container">
@@ -237,17 +233,15 @@ function displayComment(comment, tweetSection) {
     }
 }
 
-
-
 document.getElementById("tweet-button").addEventListener("click", function () {
     const tweetText = document.querySelector(".tweet-form textarea").value;
     const imageFile = document.querySelector("#image-upload").files[0];
 
     if (tweetText.trim() !== "") {
         const newTweet = {
-            image: "image/Profile/1.jpg",
-            userName: "Guts",
-            userHandle: "@Guts455",
+            image: userProfile[0].image,
+            userName: userProfile[0].userName,
+            userHandle: userProfile[0].userHandle,
             tweetText: tweetText,
             tweetimage: "",
         };

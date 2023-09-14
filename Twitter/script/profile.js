@@ -1,4 +1,4 @@
-import { tweets } from "../script/Tweet.js";
+import { tweets,userProfile } from "../script/Tweet.js";
 import { trendingTopics } from "../script/Trend.js";
 
 let topicList = document.querySelector('.topic-list');
@@ -99,3 +99,29 @@ for (let tweet of tweets) {
     suggestionDetails.appendChild(tweetElement);
 }
 
+  function populateProfile() {
+    const profilePicture = document.querySelector(".profile-image-user");
+    const profileName = document.querySelector(".profile-name");
+    const profileHandle = document.querySelector(".profile-handle");
+    const profileBio = document.querySelector(".profile-bio");
+    const profileBanner = document.querySelector(".profile-banner");
+  
+    if (profilePicture) {
+      profilePicture.src = userProfile[0].image;
+      profilePicture.alt = "Profile Picture";
+    }
+  
+    if (profileName) {
+      profileName.textContent = userProfile[0].userName;
+    }
+  
+    if (profileHandle) {
+      profileHandle.textContent = userProfile[0].userHandle;
+    }
+  
+    if (profileBio) {
+      profileBio.textContent = userProfile[0].profileBio;
+    }
+  }
+
+  populateProfile();

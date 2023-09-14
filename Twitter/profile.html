@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Explore</title>
+  <link rel="stylesheet" href="style/profile.css">
+</head>
+<header>
+  <div class="logo">
+      <img src="image/twitter.png" alt="Twitter Logo" style="width: 80px;">
+      <a href="twitter.html">Home</a>
+  </div>
+
+  <div class="user-profile">
+      <img src="image/Profile/1.jpg" alt="Your Profile Picture">
+      <div class="user-info">
+          <span class="user-name">Guts</span>
+          <span class="user-handle">@Guts455</span>
+      </div>
+      <div class="notifications">
+          <i class="fas fa-bell"></i>
+      </div>
+  </div>
+</header>
+<body>  
+    <div class="container">
+    <div class="leftBar">
+        <button><a href="twitter.html">Home</a></button>
+        <button><a href="Explore.html">Explore</a></button>
+        <button>Notifications</button>
+        <button>List</button>
+        <button>Bookmarks</button>
+        <button>Profile</button>
+    </div>  
+      <main>
+        <div class="profile-container">
+          <div class="profile-banner"></div>        
+          <div class="profile-header">
+              <img src="" alt="Profile Picture" class="profile-image-user">
+              <div class="profile-name"></div>
+              <div class="profile-handle"></div>
+          </div>
+  
+          <div class="profile-bio"></div>
+  
+          <div class="tweet-container"></div>
+      </div>
+      </main>
+      <aside>
+        <div class="content">
+          <div class="follow-suggestions">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search Twitter">
+                <div class="results" id="searchResults"></div>
+            </div>
+        </div>
+    
+        <div class="suggestion">
+          <h2>Who to Follow</h2>
+          <div class="suggestion-details "></div>
+      </div>
+      <div class="trending-topics">
+        <h2>Trending</h2>
+        <ul class="topic-list"></ul>
+    </div> 
+      </aside>
+<script type="module" src="script/profile.js"></script>
+</body>
+</html>
